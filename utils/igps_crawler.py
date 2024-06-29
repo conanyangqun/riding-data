@@ -39,6 +39,10 @@ class IGPSCrawler(object):
         self.password = password
 
         self.session = requests.Session()
+        headers ={
+            'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.28 Safari/537.36',
+        }
+        self.session.headers = headers
     
     def login(self):
         """
@@ -167,10 +171,14 @@ class IGPSCrawler(object):
         url = self.URLS['activity_url'].format(file_type, ride_id)
         res = self.session.get(url)
         if res.status_code == 200:
-            with open(out_filename, 'wb') as o:
-                o.write(res.content)
-            logging.debug('download successfully.')
-            return True
+            if len(res.content):
+                with open(out_filename, 'wb') as o:
+                    o.write(res.content)
+                logging.debug('download successfully.')
+                return True
+            else:
+                logging.warning('request successfully, but content is empty. account may be blocked.')
+                return False
         else:
             logging.warning('download rideid {} activity file, type {} failed, pass'.format(ride_id, file_type))
             return False
