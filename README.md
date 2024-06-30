@@ -27,3 +27,22 @@
 ![grid](posters/2024.grid.svg)
 
 ![circular](posters/2024.circular.svg)
+
+### 相关脚本
+
+`utils/igps_crawler.py`。从[igpsport](https://my.igpsport.com/account/Login)网页端获取数据。**注意，网页端频繁获取一定数目的数据后，账号将出现成功请求但是数据为空的情况**。用法如下：
+
+```bash
+python3 utils/igps_crawler.py \
+    -u "username" \
+    -p "password" \
+    [--debug] \
+    --download \
+    --out-dir 2024 \
+    --page_start 1 \
+    --page_end 1 \
+    --fit \
+    [--gpx] \
+    [--tcx] \
+    [--json igps.saved_activities.json]
+```

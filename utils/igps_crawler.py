@@ -226,7 +226,7 @@ class IGPSCrawler(object):
                 if not tcx and ext == '.tcx':
                     continue
 
-                out_name = '{}.{}'.format(start_time, ride_id) + ext
+                out_name = '{}.igps.{}'.format(start_time, ride_id) + ext
                 out_path = os.path.join(out_dir, out_name)
                 flag = self.download_activity_by_ride_id(ride_id, out_path, file_type=tag)
                 downloaded_flags.append(flag)
